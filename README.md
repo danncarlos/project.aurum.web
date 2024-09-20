@@ -9,3 +9,4 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 3 - `ng s` serve application
 
+![image](https://github.com/user-attachments/assets/f85d1cfa-0f24-423a-b6d4-f00b5fb948c6)
