@@ -32,7 +32,7 @@
                             class="text-red-500 text-sm mt-0.5">
                             <small *ngIf="productFormGroup.get('price')?.errors?.['required']">Preço é
                                 obrigatório.</small>
-                                <small *ngIf="!productFormGroup.get('price')?.valid">Preço inválido.</small>
+                            <small *ngIf="!productFormGroup.get('price')?.valid">Preço inválido.</small>
                             <small *ngIf="productFormGroup.get('price')?.errors?.['min']">O preço deve ser maior que
                                 0.</small>
                         </div>
