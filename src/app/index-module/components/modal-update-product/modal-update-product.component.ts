@@ -29,7 +29,7 @@ export class ModalUpdateProductComponent implements OnChanges {
   constructor(private fb: FormBuilder) {
     this.productFormGroup = this.fb.group({
       id: ['', [Validators.required]],
-      name: ['', [Validators.required, Validators.maxLength(20)]],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', Validators.maxLength(300)],
       price: ['', [Validators.required, Validators.min(0.01)]],
       category: ['', Validators.required],

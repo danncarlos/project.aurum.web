@@ -25,9 +25,9 @@ export class ModalCreateProductComponent {
   constructor(private fb: FormBuilder) {
     this.productFormGroup = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      description: ['', Validators.maxLength(300)],
       price: ['', [Validators.required, Validators.min(0.01)]],
       category: ['', Validators.required],
+      description: ['', Validators.maxLength(300)],
     });
   }
 
@@ -38,7 +38,7 @@ export class ModalCreateProductComponent {
   createProduct() {
     this.productFormGroup.markAllAsTouched();
 
-    if(!this.productFormGroup.valid) return;
+    if (!this.productFormGroup.valid) return;
 
     const formData = this.productFormGroup.value;
 
@@ -48,7 +48,7 @@ export class ModalCreateProductComponent {
       category: parseInt(formData.category),
       description: formData.description,
     } as CreateProductCommand;
-    
+
     this.onSubmit.emit(commmand);
     this.closeModal();
   }

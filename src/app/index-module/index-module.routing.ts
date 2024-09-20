@@ -16,7 +16,7 @@ const routes: Routes = [
       {
         path: 'home',
         component: AllProductsComponent,
-        title: 'Lista de Produtos'
+        title: 'Todos os Produtos'
       }
     ]
   }

@@ -15,7 +15,7 @@
                             <small *ngIf="productFormGroup.get('name')?.errors?.['required']">Nome é
                                 obrigatório.</small>
                             <small *ngIf="productFormGroup.get('name')?.errors?.['maxnlength']">Nome pode ter
-                                até 20 caracteres.</small>
+                                até 50 caracteres.</small>
                         </div>
                     </div>
 
@@ -72,9 +72,11 @@
         </div>
 
         <div class="modal-action">
-            <button (click)="updateProduct()" class="btn ml-2 btn-success btn-outline" *ngIf="isUpdateEnable" [disabled]="!productFormGroup.dirty">Salvar</button>
+            <button (click)="updateProduct()" class="btn ml-2 btn-success btn-outline" *ngIf="isUpdateEnable"
+                [disabled]="!productFormGroup.dirty">Salvar</button>
             <button (click)="enableEdit()" class="btn ml-2 btn-info btn-outline" *ngIf="!isUpdateEnable">Editar</button>
-            <button (click)="deleteProduct(product.id)" class="btn ml-2 btn-error btn-outline" *ngIf="!isUpdateEnable">Apagar</button>
+            <button (click)="deleteProduct(product.id)" class="btn ml-2 btn-error btn-outline"
+                *ngIf="!isUpdateEnable">Apagar</button>
             <button (click)="closeModal()" class="btn ml-2">Cancelar</button>
         </div>
     </div>
