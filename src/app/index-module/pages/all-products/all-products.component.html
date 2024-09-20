@@ -1,0 +1,67 @@
+<div class="flex h-24">
+    <div class="flex flex-col w-3/4">
+        <span class="text-3xl text-accent font-bold">Produtos</span>
+        <span class="text-sm -mt-1" *ngIf="productList">{{productList.length}} Produtos</span>
+    </div>
+    <div class="flex-none">
+        <button class="btn btn-primary rounded-3xl" (click)="openCreateProductModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Adicionar Produto
+        </button>
+    </div>
+</div>
+
+<div class="flex flex-col w-[90%]">
+    <div class="flex flex-row flex-wrap justify-center" *ngIf="isBusy">
+        <span class="loading loading-ring loading-lg"></span>
+    </div>
+
+    <div class="flex flex-row flex-wrap justify-center w-full" *ngIf="productList">
+        <div class="relative flex flex-col items-center group w-52 h-52 hover:shadow-2xl shadow-md cursor-pointer duration-300 rounded-3xl m-5 p-5"
+            *ngFor="let item of productList" (click)="openViewProductModal(item)">
+            <div class="bg-gray-100 p-6 rounded-full mb-4">
+                <figure>
+                    <img [src]="getItemIcon(item.category)" alt="File Icon" class="w-12 h-12">
+                </figure>
+            </div>
+
+            <div class="text-center">
+                <p class="font-bold text-lg">{{item.name}}</p>
+                <p class="text-gray-500 text-sm">{{getItemCategory(item.category)}}</p>
+            </div>
+
+            <!-- Botão de apagar -->
+            <button (click)="openDeleteProductModal(item, $event)"
+                class="absolute top-2 right-2 hidden group-hover:block bg-red-500 text-white rounded-full p-1 tooltip"
+                data-tip="Deletar produto?">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+<app-alert [list]="alertMsg"></app-alert>
+
+<app-modal-create-product (onSubmit)="onSubmitCreateProduct($event)"></app-modal-create-product>
+<app-modal-update-product (onSubmit)="onSubmitUpdateProduct($event)" (onSubmitDelete)="openDeleteProductModal(selectProduct)" [product]="selectProduct"></app-modal-update-product>
+
+<dialog id="delete_product_modal" class="modal">
+    <div class="modal-box" *ngIf="selectProduct">
+        <h3 class="text-lg font-bold">Deletar Produto</h3>
+        <p>Tem certeza de que quer excluir <b>{{selectProduct.name}}?</b></p>
+        <p>Essa ação não pode ser desfeita</p>
+        <div class="modal-action">
+            <form method="dialog">
+                <button (click)="onSubmitDeleteProduct(selectProduct.id)" class="btn btn-error btn-outline ml-2">Apagar
+                    Produto</button>
+                <button class="btn ml-2">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</dialog>

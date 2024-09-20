@@ -1,0 +1,5 @@
+<div class="toast toast-start">
+    <div class="alert" *ngFor="let item of list" [ngClass]="{'alert-success': item.type === 'success', 'alert-error': item.type === 'error'}"> 
+        <span>{{item.msg}}</span>
+    </div>
+</div>

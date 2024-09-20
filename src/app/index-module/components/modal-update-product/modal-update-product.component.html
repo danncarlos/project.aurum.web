@@ -1,0 +1,81 @@
+<dialog id="update_product_modal" class="modal">
+    <div class="modal-box w-11/12 max-w-5xl" *ngIf="product">
+        <h2 class="text-md font-bold">{{product.name}}</h2>
+        <div class="container mx-auto max-h-[35rem] overflow-y-auto p-4 rounded-lg">
+            <div class="flex flex-col items-center">
+                <form [formGroup]="productFormGroup" (ngSubmit)="updateProduct()" class="w-full max-w-lg space-y-4">
+
+                    <div class="w-full">
+                        <label class="label text-base font-medium">Nome</label>
+                        <input type="text" formControlName="name"
+                            class="input input-bordered w-full rounded-md focus:ring-2 focus:ring-indigo-500 disabled:font-bold"
+                            maxlength="50">
+                        <div *ngIf="productFormGroup.get('name')?.invalid && productFormGroup.get('name')?.touched"
+                            class="text-red-500 text-sm mt-0.5">
+                            <small *ngIf="productFormGroup.get('name')?.errors?.['required']">Nome é
+                                obrigatório.</small>
+                            <small *ngIf="productFormGroup.get('name')?.errors?.['maxnlength']">Nome pode ter
+                                até 20 caracteres.</small>
+                        </div>
+                    </div>
+
+                    <div class="w-full">
+                        <label class="label text-base font-medium ">Preço</label>
+                        <div class="input-group w-full">
+                            <label
+                                class="input input-bordered w-full rounded-r-md focus:ring-2 focus:ring-indigo-500 flex items-center gap-2">
+                                R$
+                                <input type="number" formControlName="price" class="grow disabled:font-bold "
+                                    step="0.01" min="0.01" placeholder="0.00" />
+                            </label>
+                        </div>
+
+                        <div *ngIf="productFormGroup.get('price')?.invalid && productFormGroup.get('price')?.touched"
+                            class="text-red-500 text-sm mt-0.5">
+                            <small *ngIf="productFormGroup.get('price')?.errors?.['required']">Preço é
+                                obrigatório.</small>
+                            <small *ngIf="productFormGroup.get('price')?.errors?.['min']">O preço deve ser maior que
+                                0.</small>
+                        </div>
+                    </div>
+
+                    <div class="w-full">
+                        <label class="label text-base font-medium ">Categoria</label>
+                        <select id="category"
+                            class="select select-bordered w-full rounded-md focus:ring-2 focus:ring-indigo-500 disabled:font-bold "
+                            formControlName="category">
+                            <option *ngFor="let category of productCategories" [value]="category">
+                                {{ getItemCategory(category) }}
+                            </option>
+                        </select>
+                        <div *ngIf="productFormGroup.get('category')?.invalid && productFormGroup.get('category')?.touched"
+                            class="text-red-500 text-sm mt-0.5">
+                            <small *ngIf="productFormGroup.get('category')?.errors?.['required']">Selecione uma
+                                categoria.</small>
+                        </div>
+                    </div>
+
+                    <div class="w-full">
+                        <label for="description" class="label text-base font-medium">Descrição</label>
+                        <textarea id="description" formControlName="description"
+                            class="textarea textarea-bordered w-full h-28 rounded-md focus:ring-2 focus:ring-indigo-500 disabled:font-bold "
+                            maxlength="300" placeholder="Descrição"></textarea>
+                        <div *ngIf="productFormGroup.get('description')?.invalid && productFormGroup.get('description')?.touched"
+                            class="text-red-500 text-sm mt-0.5">
+                            <small *ngIf="productFormGroup.get('description')?.errors?.['maxlength']">Descrição pode ter
+                                até 300 caracteres</small>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-action">
+            <button (click)="updateProduct()" class="btn ml-2 btn-success btn-outline" *ngIf="isUpdateEnable" [disabled]="!productFormGroup.dirty">Salvar</button>
+            <button (click)="enableEdit()" class="btn ml-2 btn-info btn-outline" *ngIf="!isUpdateEnable">Editar</button>
+            <button (click)="deleteProduct(product.id)" class="btn ml-2 btn-error btn-outline" *ngIf="!isUpdateEnable">Apagar</button>
+            <button (click)="closeModal()" class="btn ml-2">Cancelar</button>
+        </div>
+    </div>
+</dialog>
